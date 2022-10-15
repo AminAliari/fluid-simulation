@@ -7,7 +7,6 @@
 #define SPH_PARTITION_BUCKET_COUNT 1048576U
 
 // Interfaces
-#define USE_POSITIVE_PLANE_SIGN
 #include "../../TheForge/Utilities/Interfaces/ILog.h"
 #include "../../TheForge/Utilities/Interfaces/ITime.h"
 #include "../../TheForge/Game/Interfaces/IScripting.h"
@@ -24,6 +23,7 @@
 #include "../../TheForge/Resources/ResourceLoader/Interfaces/IResourceLoader.h"
 
 // Math
+#define USE_POSITIVE_PLANE_SIGN
 #include "../../TheForge/Utilities/Math/MathTypes.h"
 #include "../../TheForge/Utilities/Interfaces/IMemory.h"
 
