@@ -1,0 +1,51 @@
+#frag basic.frag
+#include "basic.frag.fsl"
+#end
+
+#vert basic.vert
+#include "basic.vert.fsl"
+#end
+
+#vert instanced.vert
+#include "instanced.vert.fsl"
+#end
+
+#vert sphereInstanced.vert
+#include "sphereInstanced.vert.fsl"
+#end
+
+#comp partition.comp
+#include "partition.comp.fsl"
+#end
+
+#comp resetOffset.comp
+#include "resetOffset.comp.fsl"
+#end
+
+#comp partitionOffset.comp
+#include "partitionOffset.comp.fsl"
+#end
+
+#comp density.comp
+#include "density.comp.fsl"
+#end
+
+#comp force.comp
+#include "force.comp.fsl"
+#end
+
+#comp simulate.comp
+#include "simulate.comp.fsl"
+#end
+
+#comp sort.comp
+#include "sort.comp.fsl"
+#end
+
+#comp sortStep.comp
+#include "sortStep.comp.fsl"
+#end
+
+#comp sortInner.comp
+#include "sortInner.comp.fsl"
+#end

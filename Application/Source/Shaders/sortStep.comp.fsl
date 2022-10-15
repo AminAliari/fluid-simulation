@@ -1,0 +1,40 @@
+#include "resources.h.fsl"
+
+NUM_THREADS(256, 1, 1)
+void CS_MAIN(SV_GroupID(uint3) Gid, SV_GroupThreadID(uint3) GTid)
+{
+    INIT_MAIN;
+
+    int4 job_params = int4(Get(args).xyzw);
+    
+	uint4 tgp;
+
+	tgp.x = Gid.x * 256;
+	tgp.y = 0;
+	tgp.z = Get(maxCount);
+	tgp.w = min(512, max(0, Get(maxCount) - Gid.x * 512));
+
+	uint localID = tgp.x + GTid.x; // calculate threadID within this sortable-array
+
+	uint index_low = localID & (job_params.x - 1);
+	uint index_high = 2 * (localID - index_low);
+
+	uint index = tgp.y + index_high + index_low;
+	uint nSwapElem = tgp.y + index_high + job_params.y + job_params.z*index_low;
+
+	if (nSwapElem < tgp.y + tgp.z)
+	{
+		uint index_a = Get(indexBuffer)[index];
+		uint index_b = Get(indexBuffer)[nSwapElem];
+		float a = Get(cellIndexBuffer)[index_a];
+		float b = Get(cellIndexBuffer)[index_b];
+
+		if (a > b)
+		{
+			Get(indexBuffer)[index] = index_b;
+			Get(indexBuffer)[nSwapElem] = index_a;
+		}
+	}
+
+    RETURN();
+}

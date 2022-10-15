@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\TheForge\Application\CameraController.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Application\InputSystem.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Application\Profiler\GpuProfiler.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Application\Profiler\ProfilerBase.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Application\Screenshot.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Application\ThirdParty\OpenSource\imgui\imgui.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Application\ThirdParty\OpenSource\imgui\imgui_demo.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Application\ThirdParty\OpenSource\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Application\ThirdParty\OpenSource\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Application\ThirdParty\OpenSource\imgui\imgui_tables.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Application\UI\UI.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\Scripting\LuaManager.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\Scripting\LuaManagerImpl.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\Scripting\LuaSystem.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lapi.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lauxlib.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lbaselib.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lbitlib.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lcode.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lcorolib.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lctype.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\ldblib.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\ldebug.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\ldo.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\ldump.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lfunc.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lgc.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\linit.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\liolib.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\llex.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lmathlib.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lmem.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\loadlib.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lobject.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lopcodes.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\loslib.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lparser.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lstate.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lstring.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lstrlib.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\ltable.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\ltablib.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\ltm.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lundump.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lutf8lib.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lvm.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Game\ThirdParty\OpenSource\lua-5.3.5\src\lzio.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Application\Fonts\FontSystem.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Application\Fonts\stbtt.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\OS\CPUConfig.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\OS\ThirdParty\OpenSource\cpu_features\src\impl_x86_windows.c" />
+    <ClCompile Include="..\..\..\..\TheForge\OS\WindowSystem\WindowSystem.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\FileSystem\FileSystem.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\FileSystem\SystemRun.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\FileSystem\ZipFileSystem.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\Log\Log.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\Math\Algorithms.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\Math\StbDs.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\MemoryTracking\MemoryTracking.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\basis_universal\transcoder\basisu_transcoder.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\bstrlib\bstrlib.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\EASTL\allocator_forge.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\EASTL\assert.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\EASTL\EAStdC\EAMemory.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\EASTL\EAStdC\EASprintf.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\EASTL\fixed_pool.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\EASTL\hashtable.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\EASTL\intrusive_list.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\EASTL\numeric_limits.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\EASTL\red_black_tree.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\EASTL\string.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\EASTL\thread_support.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\lib\brg\aescrypt.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\lib\brg\aeskey.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\lib\brg\aestab.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\lib\brg\hmac.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\lib\brg\sha1.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\lib\brg\sha2.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\mz_crypt.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\mz_crypt_brg.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\mz_os.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\mz_strm_raw.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\mz_strm_wzaes.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\mz_strm_zlib.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\mz_zip.c" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\rmem\src\rmem_get_module_info.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\rmem\src\rmem_hook.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\rmem\src\rmem_lib.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\Threading\ThreadSystem.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Utilities\Timer.c" />
+    <ClInclude Include="..\..\..\..\TheForge\Application\Config.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Application\Interfaces\IApp.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Application\Interfaces\ICameraController.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Application\Interfaces\IInput.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Application\Interfaces\IMiddleware.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Application\Interfaces\IProfiler.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Application\Interfaces\IScreenshot.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Application\Interfaces\IUI.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Application\Profiler\GpuProfiler.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Application\Profiler\ProfilerBase.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Application\Profiler\ProfilerHTML.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Application\ThirdParty\OpenSource\imgui\imconfig.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Application\ThirdParty\OpenSource\imgui\imgui.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Application\ThirdParty\OpenSource\imgui\imgui_internal.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Game\Interfaces\IScripting.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Game\Scripting\LuaManager.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Game\Scripting\LuaManagerCommon.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Game\Scripting\LuaManagerImpl.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Game\Scripting\LunaV.hpp" />
+    <ClInclude Include="..\..\..\..\TheForge\Application\Fonts\Shaders\FSL\resources.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Graphics\GPUConfig.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Application\Interfaces\IFont.h" />
+    <ClCompile Include="..\..\..\..\TheForge\OS\Windows\WindowsBase.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\OS\Windows\WindowsFileSystem.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\OS\Windows\WindowsLog.c" />
+    <ClCompile Include="..\..\..\..\TheForge\OS\Windows\WindowsStackTraceDump.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\OS\Windows\WindowsThread.c" />
+    <ClCompile Include="..\..\..\..\TheForge\OS\Windows\WindowsTime.c" />
+    <ClCompile Include="..\..\..\..\TheForge\OS\Windows\WindowsToolsFileSystem.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\OS\Windows\WindowsWindow.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Resources\AnimationSystem\Animation\AnimatedObject.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Resources\AnimationSystem\Animation\Animation.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Resources\AnimationSystem\Animation\Clip.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Resources\AnimationSystem\Animation\ClipController.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Resources\AnimationSystem\Animation\ClipMask.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Resources\AnimationSystem\Animation\Rig.cpp" />
+    <ClCompile Include="..\..\..\..\TheForge\Resources\AnimationSystem\Animation\SkeletonBatcher.cpp" />
+    <ClInclude Include="..\..\..\..\TheForge\OS\CPUConfig.h" />
+    <ClInclude Include="..\..\..\..\TheForge\OS\Interfaces\IOperatingSystem.h" />
+    <ClInclude Include="..\..\..\..\TheForge\OS\Windows\WindowsStackTraceDump.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Resources\AnimationSystem\Animation\AnimatedObject.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Resources\AnimationSystem\Animation\Animation.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Resources\AnimationSystem\Animation\Clip.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Resources\AnimationSystem\Animation\ClipController.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Resources\AnimationSystem\Animation\ClipMask.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Resources\AnimationSystem\Animation\Rig.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Resources\AnimationSystem\Animation\SkeletonBatcher.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\Interfaces\IFileSystem.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\Interfaces\ILog.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\Interfaces\IMemory.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\Interfaces\IThread.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\Interfaces\ITime.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\Interfaces\IToolFileSystem.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\Log\Log.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\Math\Algorithms.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\Math\AlgorithmsImpl.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\Math\BStringHashMap.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\Math\MathTypes.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\RingBuffer.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\bstrlib\bstrlib.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\lib\brg\aes.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\lib\brg\aesopt.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\lib\brg\aestab.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\lib\brg\brg_endian.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\lib\brg\brg_types.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\lib\brg\hmac.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\lib\brg\sha1.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\lib\brg\sha2.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\mz.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\mz_crypt.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\mz_os.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\mz_strm.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\mz_strm_wzaes.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\mz_strm_zlib.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\minizip\mz_zip.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\zip\miniz.h" />
+    <ClInclude Include="..\..\..\..\TheForge\Utilities\Threading\ThreadSystem.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\..\..\..\TheForge\Utilities\ThirdParty\OpenSource\EASTL\EASTL.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <FSLShader Include="..\..\..\..\TheForge\Application\UI\Shaders\FSL\imgui.frag.fsl" />
+    <FSLShader Include="..\..\..\..\TheForge\Application\UI\Shaders\FSL\imgui.vert.fsl" />
+    <FSLShader Include="..\..\..\..\TheForge\Application\UI\Shaders\FSL\textured_mesh.frag.fsl" />
+    <FSLShader Include="..\..\..\..\TheForge\Application\UI\Shaders\FSL\textured_mesh.vert.fsl" />
+    <FSLShader Include="..\..\..\..\TheForge\Application\UI\Shaders\FSL\UI_ShaderList.fsl" />
+    <FSLShader Include="..\..\..\..\TheForge\Application\Fonts\Shaders\FSL\fontstash.frag.fsl" />
+    <FSLShader Include="..\..\..\..\TheForge\Application\Fonts\Shaders\FSL\fontstash2D.vert.fsl" />
+    <FSLShader Include="..\..\..\..\TheForge\Application\Fonts\Shaders\FSL\fontstash3D.vert.fsl" />
+    <FSLShader Include="..\..\..\..\TheForge\Application\Fonts\Shaders\FSL\Fonts_ShaderList.fsl" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{30DD3D57-0026-48C8-BFD1-6392F319E23A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Samples_GLFW</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <ProjectName>OS</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(SolutionDir)\$(Platform)\$(Configuration)\Intermediate\$(ProjectName)\</IntDir>
+    <IncludePath>$(VULKAN_SDK)\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(SolutionDir)\$(Platform)\$(Configuration)\Intermediate\$(ProjectName)\</IntDir>
+    <IncludePath>$(VULKAN_SDK)\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\..\..\..\TheForge\Resources\AnimationSystem\ThirdParty\OpenSource\ozz-animation\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalOptions>/ENTRY:mainCRTStartup %(AdditionalOptions)</AdditionalOptions>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <AdditionalLibraryDirectories>$(GLFW_DIR)\lib;$(VULKAN_SDK)\Lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4099</AdditionalOptions>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/ignore:4099</AdditionalOptions>
+    </Lib>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <FSLShader>
+      <OutDir>$(OutDir)/$(ProjectName)/Shaders</OutDir>
+      <BinaryOutDir>$(OutDir)/$(ProjectName)/CompiledShaders</BinaryOutDir>
+      <Language>DIRECT3D11 DIRECT3D12 VULKAN</Language>
+    </FSLShader>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\TheForge\Resources\AnimationSystem\ThirdParty\OpenSource\ozz-animation\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <AdditionalOptions>/ENTRY:mainCRTStartup %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>$(GLFW_DIR)\lib;$(VULKAN_SDK)\Lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4099</AdditionalOptions>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/ignore:4099</AdditionalOptions>
+    </Lib>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <FSLShader>
+      <OutDir>$(OutDir)/$(ProjectName)/Shaders</OutDir>
+      <BinaryOutDir>$(OutDir)/$(ProjectName)/CompiledShaders</BinaryOutDir>
+      <Language>DIRECT3D11 DIRECT3D12 VULKAN</Language>
+    </FSLShader>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\..\..\..\TheForge\Tools\ForgeShadingLanguage\VS\fsl.targets" />
+  </ImportGroup>
+</Project>

@@ -1,0 +1,64 @@
+#include "resources.h.fsl"
+
+NUM_THREADS(THREAD_COUNT, 1, 1)
+void CS_MAIN(SV_DispatchThreadID(uint3) DTid)
+{
+    INIT_MAIN;
+
+    if (DTid.x < Get(maxCount))
+	{
+		uint particleIndex = Get(indexBuffer)[DTid.x];
+		ParticleData particle = Get(particleBuffer)[particleIndex];
+
+		// integrate
+		particle.force.xyz += Get(gravity);
+		particle.vel.xyz += particle.force.xyz * Get(dt);
+		particle.pos.xyz += particle.vel.xyz * Get(dt);
+
+		// reset force for next frame
+		particle.force.xyz = float3(0, 0, 0);
+
+        // force field
+        {
+            float3 dir = Get(forcePos) - particle.pos.xyz;
+            float dist = length(dir);
+            dir /= dist;
+            particle.force.xyz += dir * -Get(forcePower) * (1 - saturate(dist / Get(forceRange)));
+        }
+
+		// drag
+        particle.vel.xyz *= Get(drag);
+
+        // planes
+        for (int i = 0; i < MAX_PLANE; ++i)
+        {
+            float3 dir = normalize(Get(plane_normal[i]).xyz);
+            float dist = plane_distance(Get(plane_pos[i]).xyz, dir, particle.pos.xyz);
+            if (dist < 0)
+            {
+                dir *= -1;
+                dist = abs(dist);
+            }
+
+            dist = dist - particleSize;
+            if (dist < 0)
+            {
+                const float3 clipSpacePos = mul(Get(plane_toLocal[i]), float4(particle.pos.xyz, 1.0)).xyz;
+                const float3 uvw = clip_to_uv(clipSpacePos);
+
+                if (is_saturated(uvw))
+                {
+                    particle.vel.xyz = reflect(particle.vel.xyz, dir);
+                    float3 offset_vel = -dir * dist;
+                    particle.pos.xyz += offset_vel;
+                    particle.vel.xyz += offset_vel;
+                }
+            }
+        }
+
+        // write back simulated particle:
+        Get(particleBuffer)[particleIndex] = particle;
+	}
+
+    RETURN();
+}

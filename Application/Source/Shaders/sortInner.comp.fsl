@@ -1,0 +1,81 @@
+#include "resources.h.fsl"
+
+#define SORT_SIZE 512
+
+#if (SORT_SIZE > 2048)
+#error
+#endif
+
+#define SORT_NUM_THREADS		(SORT_SIZE/2)
+#define INVERSION				(16*2 + 8*3)
+
+//--------------------------------------------------------------------------------------
+// Bitonic Sort Compute Shader
+//--------------------------------------------------------------------------------------
+GroupShared(float2, g_LDS[SORT_SIZE]);
+
+NUM_THREADS(SORT_NUM_THREADS, 1, 1)
+void CS_MAIN(SV_GroupID(uint3) Gid, SV_DispatchThreadID(uint3) DTid, SV_GroupThreadID(uint3) GTid, SV_GroupIndex(uint) GI)
+{
+    INIT_MAIN;
+
+	uint4 tgp;
+
+	tgp.x = Gid.x * 256;
+	tgp.y = 0;
+	tgp.z = Get(maxCount);
+	tgp.w = min(512, max(0, Get(maxCount) - Gid.x * 512));
+
+	uint GlobalBaseIndex = tgp.y + tgp.x * 2 + GTid.x;
+	uint LocalBaseIndex = GI;
+	uint i;
+
+	// Load shared data
+	UNROLL
+    for (i = 0; i < 2; ++i)
+	{
+		if (GI + i * SORT_NUM_THREADS < tgp.w)
+		{
+			uint particleIndex = Get(indexBuffer)[GlobalBaseIndex + i * SORT_NUM_THREADS];
+			float dist = Get(cellIndexBuffer)[particleIndex];
+			g_LDS[LocalBaseIndex + i * SORT_NUM_THREADS] = float2(dist, float(particleIndex));
+		}
+	}
+	GroupMemoryBarrier();
+
+	// sort threadgroup shared memory
+	for (int nMergeSubSize = SORT_SIZE >> 1; nMergeSubSize > 0; nMergeSubSize = nMergeSubSize >> 1)
+	{
+		int tmp_index = int(GI);
+		int index_low = tmp_index & (nMergeSubSize - 1);
+		int index_high = 2 * (tmp_index - index_low);
+		int index = index_high + index_low;
+
+		uint nSwapElem = index_high + nMergeSubSize + index_low;
+
+		if (nSwapElem < tgp.w)
+		{
+			float2 a = g_LDS[index];
+			float2 b = g_LDS[nSwapElem];
+
+			if (a.x > b.x)
+			{
+				g_LDS[index] = b;
+				g_LDS[nSwapElem] = a;
+			}
+		}
+		GroupMemoryBarrier();
+	}
+
+	// Store shared data
+	UNROLL
+    for (i = 0; i < 2; ++i)
+	{
+		if (GI + i * SORT_NUM_THREADS < tgp.w)
+		{
+			Get(indexBuffer)[GlobalBaseIndex + i * SORT_NUM_THREADS] = uint(g_LDS[LocalBaseIndex + i * SORT_NUM_THREADS].y);
+		}
+	}
+
+    RETURN();
+}

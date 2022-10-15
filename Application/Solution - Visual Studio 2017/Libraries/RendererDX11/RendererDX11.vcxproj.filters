@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{c41771f8-0d51-4636-9d1d-1a2145d6bd35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Dependencies">
+      <UniqueIdentifier>{d303e324-c20a-47fa-a60b-27e39892040b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\TheForge\Renderer\Direct3D11\Direct3D11.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\TheForge\Graphics\CommonShaderReflection.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\TheForge\Resources\ResourceLoader\ResourceLoader.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\TheForge\Renderer\Direct3D11\Direct3D11ShaderReflection.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\TheForge\Renderer\Direct3D11\Direct3D11Raytracing.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\TheForge\ThirdParty\OpenSource\gpudetect\src\DeviceId.cpp">
+      <Filter>Renderer\Dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\TheForge\ThirdParty\OpenSource\gpudetect\src\GPUDetect.cpp">
+      <Filter>Renderer\Dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\TheForge\Renderer\Renderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\TheForge\Renderer\Direct3D11\Direct3D11Commands.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\TheForge\Renderer\Direct3D11\Direct3D11CapBuilder.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

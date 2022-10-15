@@ -1,0 +1,22 @@
+#include "resources.h.fsl"
+
+NUM_THREADS(THREAD_COUNT, 1, 1)
+void CS_MAIN(SV_DispatchThreadID(uint3) DTid)
+{
+    INIT_MAIN;
+
+    if (DTid.x < Get(maxCount))
+	{
+		uint particleIndex = Get(indexBuffer)[DTid.x];
+		ParticleData particle = Get(particleBuffer)[particleIndex];
+
+		float3 remappedPos = particle.pos.xyz * Get(SPH_h_rcp);
+
+		int3 cellIndex = int3(floor(remappedPos));
+		uint flatCellIndex = SPH_GridHash(cellIndex);
+
+		Get(cellIndexBuffer)[particleIndex] = float(flatCellIndex);
+	}
+
+    RETURN();
+}

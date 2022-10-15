@@ -1,0 +1,87 @@
+#include "resources.h.fsl"
+
+#define SORT_SIZE 512
+
+#if (SORT_SIZE > 4096)
+// won't work for arrays>4096
+#error due to LDS size SORT_SIZE must be 4096 or smaller
+#else
+#define ITEMS_PER_GROUP	( SORT_SIZE )
+#endif
+
+#define HALF_SIZE				(SORT_SIZE/2)
+#define ITERATIONS				(HALF_SIZE > 1024 ? HALF_SIZE/1024 : 1)
+#define SORT_NUM_THREADS		(HALF_SIZE/ITERATIONS)
+#define INVERSION				(16*2 + 8*3)
+
+//--------------------------------------------------------------------------------------
+// Bitonic Sort Compute Shader
+//--------------------------------------------------------------------------------------
+GroupShared(float2, g_LDS[SORT_SIZE]);
+
+NUM_THREADS(SORT_NUM_THREADS, 1, 1)
+void CS_MAIN(SV_GroupID(uint3) Gid, SV_DispatchThreadID(uint3) DTid, SV_GroupThreadID(uint3) GTid, SV_GroupIndex(uint) GI)
+{
+    INIT_MAIN;
+
+	uint GlobalBaseIndex = (Gid.x * SORT_SIZE) + GTid.x;
+	uint LocalBaseIndex = GI;
+
+	uint numElementsInThreadGroup = min(SORT_SIZE, Get(maxCount) - (Gid.x * SORT_SIZE));
+
+	// Load shared data
+	uint i;
+	UNROLL
+    for (i = 0; i < 2 * ITERATIONS; ++i)
+	{
+		if (GI + i * SORT_NUM_THREADS < numElementsInThreadGroup)
+		{
+			uint particleIndex = Get(indexBuffer)[GlobalBaseIndex + i * SORT_NUM_THREADS];
+			float dist = Get(cellIndexBuffer)[particleIndex];
+			g_LDS[LocalBaseIndex + i * SORT_NUM_THREADS] = float2(dist, float(particleIndex));
+		}
+	}
+	GroupMemoryBarrier();
+
+	// Bitonic sort
+	for (uint nMergeSize = 2; nMergeSize <= SORT_SIZE; nMergeSize = nMergeSize * 2)
+	{
+		for (uint nMergeSubSize = nMergeSize >> 1; nMergeSubSize > 0; nMergeSubSize = nMergeSubSize >> 1)
+		{
+			UNROLL
+            for (i = 0; i < ITERATIONS; ++i)
+			{
+				int tmp_index = int(GI + SORT_NUM_THREADS * i);
+				int index_low = int(tmp_index & (nMergeSubSize - 1));
+				int index_high = 2 * (tmp_index - index_low);
+				int index = index_high + index_low;
+
+				uint nSwapElem = nMergeSubSize == nMergeSize >> 1 ? index_high + (2 * nMergeSubSize - 1) - index_low : index_high + nMergeSubSize + index_low;
+				if (nSwapElem < numElementsInThreadGroup)
+				{
+					float2 a = g_LDS[index];
+					float2 b = g_LDS[nSwapElem];
+
+					if (a.x > b.x)
+					{
+						g_LDS[index] = b;
+						g_LDS[nSwapElem] = a;
+					}
+				}
+				GroupMemoryBarrier();
+			}
+		}
+	}
+
+	// Store shared data
+	UNROLL
+    for (i = 0; i < 2 * ITERATIONS; ++i)
+	{
+		if (GI + i * SORT_NUM_THREADS < numElementsInThreadGroup)
+		{
+			Get(indexBuffer)[GlobalBaseIndex + i * SORT_NUM_THREADS] = uint(g_LDS[LocalBaseIndex + i * SORT_NUM_THREADS].y);
+		}
+	}
+
+    RETURN();
+}

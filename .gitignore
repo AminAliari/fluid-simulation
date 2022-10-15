@@ -1,0 +1,60 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Visual Studio
+**/.vs/
+**/x64/
+**.vcxproj.user
+**.user
+**.log
+
+# Art
+Art/
+
+# Binary Shaders
+**/PCDX12/Binary/
+**/PCVulkan/Binary/
+**/OSXMetal/Binary/
+**/PCDX12/Compiled/
+
+# Automatically Generated Files
+**/Renderer/IRendererDLL.h
+**/Renderer/Renderer.cpp
+
+# Obj folders
+**/obj/
+**/bin/
+
+# Nuget packages
+Tools/ShaderBuildCommand/packages/
+**/ThirdParty/OpenSource/hlslparser/Ext/ShaderTranslator/packages/

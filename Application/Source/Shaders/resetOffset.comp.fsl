@@ -1,0 +1,11 @@
+#include "resources.h.fsl"
+
+NUM_THREADS(THREAD_COUNT, 1, 1)
+void CS_MAIN(SV_DispatchThreadID(uint3) DTid)
+{
+    INIT_MAIN;
+
+	Get(cellOffsetBuffer)[DTid.x] = 0xFFFFFFFF; // invalid offset
+
+    RETURN();
+}

@@ -1,0 +1,34 @@
+#ifndef HELPER_H
+#define HELPER_H
+
+#define SPH_PARTITION_BUCKET_COUNT 1048576U
+INLINE uint SPH_GridHash(int3 cellIndex)
+{
+    const uint p1 = 73856093; // some large primes 
+    const uint p2 = 19349663;
+    const uint p3 = 83492791;
+    uint n = p1*cellIndex.x ^ p2*cellIndex.y ^ p3*cellIndex.z;
+    n = n % SPH_PARTITION_BUCKET_COUNT;
+    return n;
+}
+
+float plane_distance(float3 planePos, float3 planeNormal, float3 pointPos)
+{
+    return dot(pointPos - planePos, planeNormal);
+}
+
+INLINE float2 clip_to_uv(in float2 clipspace)
+{
+    return clipspace * float2(0.5, -0.5) + 0.5;
+}
+INLINE float3 clip_to_uv(in float3 clipspace)
+{
+    return clipspace * float3(0.5, -0.5, 0.5) + 0.5;
+}
+
+INLINE bool is_saturated(float a)  { return a == saturate(a); }
+INLINE bool is_saturated(float2 a) { return is_saturated(a.x) && is_saturated(a.y); }
+INLINE bool is_saturated(float3 a) { return is_saturated(a.x) && is_saturated(a.y) && is_saturated(a.z); }
+INLINE bool is_saturated(float4 a) { return is_saturated(a.x) && is_saturated(a.y) && is_saturated(a.z) && is_saturated(a.w); }
+
+#endif

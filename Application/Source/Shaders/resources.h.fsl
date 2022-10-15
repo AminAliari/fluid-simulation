@@ -1,0 +1,74 @@
+#ifndef RESOURCES_H
+#define RESOURCES_H
+#include "helper.h.fsl"
+
+// defines
+#define MAX_PLANE 9
+#define THREAD_COUNT 256
+
+// structs
+STRUCT(ParticleData)
+{
+	DATA(float4, pos,   None);
+	DATA(float4, vel,   None);
+    DATA(float4, force, None);
+};
+
+// Push constants
+PUSH_CONSTANT(rootConstants, b0) // custom args depending on the graphics or compute pass.
+{
+	DATA(float4, args, None);
+};
+
+// UPDATE_FREQ_PER_FRAME
+CBUFFER(frameUB, UPDATE_FREQ_PER_FRAME, b1, binding = 0)
+{
+    DATA(float4x4, vp,                None);
+    DATA(float3,   lightDir,           None);
+    DATA(uint,     _pad0,              None);
+
+    DATA(float3,   gravity,            None);
+    DATA(uint,     _pad1,              None);
+
+    DATA(float3,   forcePos,           None);
+    DATA(uint,     _pad2,              None);
+
+    DATA(float,    forceRange,         None);
+    DATA(float,    forcePower,         None);
+
+    DATA(float,    dt,                 None);
+
+    DATA(uint,     maxCount,           None);
+    DATA(float,    mass,               None);
+    DATA(float,    drag,               None);
+    DATA(float,    particleSize,       None);
+
+    DATA(float,    SPH_h,              None);
+    DATA(float,    SPH_h_rcp,          None);
+    DATA(float,    SPH_h2,             None);
+    DATA(float,    SPH_h3,             None);
+    DATA(float,    SPH_K,              None);
+    DATA(float,    SPH_e,              None);
+    DATA(float,    SPH_p0,             None);
+    DATA(float,    SPH_visc_constant,  None);
+    DATA(float,    SPH_poly6_constant, None);
+    DATA(float,    SPH_spiky_constant, None);
+    DATA(uint,     _pad3[3],           None);
+};
+
+CBUFFER(planesUB, UPDATE_FREQ_PER_FRAME, b2, binding = 1)
+{
+    DATA(float4x4, plane_toLocal[MAX_PLANE], None);
+    DATA(float4x4, plane_toWorld[MAX_PLANE], None);
+    DATA(float4,   plane_pos[MAX_PLANE],     None);
+    DATA(float4,   plane_normal[MAX_PLANE],  None);
+    DATA(float4,   plane_color[MAX_PLANE],   None);
+};
+
+RES(RWBuffer(uint),         indexBuffer,      UPDATE_FREQ_PER_FRAME, u3, binding = 2);
+RES(RWBuffer(float),        cellIndexBuffer,  UPDATE_FREQ_PER_FRAME, u4, binding = 3);
+RES(RWBuffer(uint),         cellOffsetBuffer, UPDATE_FREQ_PER_FRAME, u5, binding = 4);
+RES(RWBuffer(float),        densityBuffer,    UPDATE_FREQ_PER_FRAME, u6, binding = 5);
+RES(RWBuffer(ParticleData), particleBuffer,   UPDATE_FREQ_PER_FRAME, u7, binding = 6);
+
+#endif

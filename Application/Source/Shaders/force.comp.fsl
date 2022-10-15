@@ -1,0 +1,104 @@
+#include "resources.h.fsl"
+
+NUM_THREADS(THREAD_COUNT, 1, 1)
+void CS_MAIN(SV_DispatchThreadID(uint3) DTid)
+{
+    INIT_MAIN;
+
+    if (DTid.x >= Get(maxCount))
+        RETURN();
+
+	// SPH params:
+	const float h = Get(SPH_h);
+	const float h2 = Get(SPH_h2);
+	const float h3 = Get(SPH_h3);
+	const float K = Get(SPH_K);
+	const float p0 = Get(SPH_p0);
+	const float e = Get(SPH_e);
+
+	uint particleIndexA = Get(indexBuffer)[DTid.x];
+	ParticleData particleA = Get(particleBuffer)[particleIndexA];
+	float densityA = Get(densityBuffer)[particleIndexA];
+	float pressureA = K * (densityA - p0);
+    // float pressureA = K * (pow(densityA / p0, 3) - 1);
+	
+	// Compute acceleration:
+	float3 f_a = float3(0, 0, 0);	// pressure force
+	float3 f_av = float3(0, 0, 0);  // viscosity force
+
+	// Grid cell is of size [SPH smoothing radius], so position is refitted into that
+	const float3 remappedPos = particleA.pos.xyz  * Get(SPH_h_rcp);
+	const int3 cellIndex = int3(floor(remappedPos));
+
+	// iterate through all [27] neighbor cells:
+	LOOP
+	for (int i = -1; i <= 1; ++i)
+	{
+		LOOP
+		for (int j = -1; j <= 1; ++j)
+		{
+			LOOP
+			for (int k = -1; k <= 1; ++k)
+			{
+				// hashed cell index is retrieved:
+				const int3 neighborIndex = cellIndex + int3(i, j, k);
+				const uint flatNeighborIndex = SPH_GridHash(neighborIndex);
+
+				// look up the offset into particle list from neighbor cell:
+				uint neighborIterator = Get(cellOffsetBuffer)[flatNeighborIndex];
+
+				// iterate through neighbor cell particles (if iterator offset is valid):
+				LOOP
+				while (neighborIterator != 0xFFFFFFFF && neighborIterator < Get(maxCount))
+				{
+					if (neighborIterator != DTid.x)
+					{
+						uint particleIndexB = Get(indexBuffer)[neighborIterator];
+						if (uint(Get(cellIndexBuffer)[particleIndexB]) != flatNeighborIndex)
+						{
+							// here means we stepped out of the neighbor cell list!
+							break;
+						}
+
+						// SPH Force evaluation:
+						{
+							const float3 posB = Get(particleBuffer)[particleIndexB].pos.xyz;
+
+							const float3 diff = particleA.pos.xyz - posB;
+							const float r2 = dot(diff, diff); // distance squared
+							const float r = sqrt(r2);
+
+							if (r > 0 && r < h) // avoid division by zero!
+							{
+								const float3 velB = Get(particleBuffer)[particleIndexB].vel.xyz;
+								const float densityB = Get(densityBuffer)[particleIndexB];
+								const float pressureB = K * (densityB - p0);
+
+								const float3 rNorm = diff / r;
+								float W = Get(SPH_spiky_constant) * pow(h - r, 2); // spiky kernel smoothing function
+
+								f_a += ((pressureA + pressureB) / (2 * densityA * densityB)) * W * rNorm;
+
+								W = SPH_visc_constant * (h - r);
+								f_av += (1.0f / densityB) * (velB - particleA.vel.xyz) * W * rNorm;
+							}
+						}
+					}
+
+					++neighborIterator;
+				}
+			}
+		}
+	}
+
+	// optimize formulae:
+	f_a *= -1;
+	f_av *= e;
+
+	// apply all forces:
+	particleA.force.xyz += (f_a + f_av) / densityA;
+
+	Get(particleBuffer)[particleIndexA].force = particleA.force;
+
+    RETURN();
+}
