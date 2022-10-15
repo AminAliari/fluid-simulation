@@ -494,7 +494,7 @@ public:
             SliderFloatWidget particleSizeUI;
             particleSizeUI.pData = &gFrameData.particleSize;
             particleSizeUI.mMin = 0.0f;
-            particleSizeUI.mMax = 1.0f;
+            particleSizeUI.mMax = 10.0f;
             UIWidget* pParticleSizeUI = uiCreateComponentWidget(pGuiWindow, "Particle Size", &particleSizeUI, WIDGET_TYPE_SLIDER_FLOAT);
 
             ColorSliderWidget particleColorUI;
