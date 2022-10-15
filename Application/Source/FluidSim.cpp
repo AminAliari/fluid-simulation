@@ -1,4 +1,3 @@
-
 #define MAX_PLANE 9U
 #define THREAD_COUNT 256
 #define DESCRIPTOR_SET_COUNT 3
