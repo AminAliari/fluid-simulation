@@ -322,6 +322,7 @@ public:
             ParticleData* particleData = generateParticleData();
 
             // particleBuffer
+            SyncToken particleToken = {};
             BufferLoadDesc bufferDesc = {};
             bufferDesc.mDesc.mDescriptors = DESCRIPTOR_TYPE_RW_BUFFER;
             bufferDesc.mDesc.mMemoryUsage = RESOURCE_MEMORY_USAGE_GPU_ONLY;
@@ -332,15 +333,16 @@ public:
             bufferDesc.mDesc.mSize = maxCount * bufferDesc.mDesc.mStructStride;
             bufferDesc.pData = particleData;
             bufferDesc.ppBuffer = &pParticleBuffer;
-            addResource(&bufferDesc, NULL);
+            addResource(&bufferDesc, &particleToken);
 
             // indexbuffer
+            SyncToken indexToken = {};
             bufferDesc.mDesc.mElementCount = maxCount;
             bufferDesc.mDesc.mStructStride = sizeof(uint32_t);
             bufferDesc.mDesc.mSize = maxCount * bufferDesc.mDesc.mStructStride;
             bufferDesc.pData = indexData;
             bufferDesc.ppBuffer = &pIndexBuffer;
-            addResource(&bufferDesc, NULL);
+            addResource(&bufferDesc, &indexToken);
 
             // cellOffsetBuffer
             bufferDesc.mDesc.mElementCount = SPH_PARTITION_BUCKET_COUNT;
@@ -365,6 +367,9 @@ public:
             bufferDesc.pData = NULL;
             bufferDesc.ppBuffer = &pDensityBuffer;
             addResource(&bufferDesc, NULL);
+
+            waitForToken(&indexToken);
+            waitForToken(&particleToken);
 
             tf_free(indexData);
             tf_free(particleData);
