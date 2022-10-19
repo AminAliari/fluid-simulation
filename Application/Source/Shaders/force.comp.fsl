@@ -8,7 +8,7 @@ void CS_MAIN(SV_DispatchThreadID(uint3) DTid)
     if (DTid.x >= Get(maxCount))
         RETURN();
 
-	// SPH params:
+	// SPH params.
 	const float h = Get(SPH_h);
 	const float h2 = Get(SPH_h2);
 	const float h3 = Get(SPH_h3);
@@ -22,7 +22,7 @@ void CS_MAIN(SV_DispatchThreadID(uint3) DTid)
 	float pressureA = K * (densityA - p0);
     // float pressureA = K * (pow(densityA / p0, 3) - 1);
 	
-	// Compute acceleration:
+	// Compute acceleration.
 	float3 f_a = float3(0, 0, 0);	// pressure force
 	float3 f_av = float3(0, 0, 0);  // viscosity force
 
@@ -30,7 +30,7 @@ void CS_MAIN(SV_DispatchThreadID(uint3) DTid)
 	const float3 remappedPos = particleA.pos.xyz  * Get(SPH_h_rcp);
 	const int3 cellIndex = int3(floor(remappedPos));
 
-	// iterate through all [27] neighbor cells:
+	// iterate through all [27] neighbor cells.
 	LOOP
 	for (int i = -1; i <= 1; ++i)
 	{
@@ -40,14 +40,14 @@ void CS_MAIN(SV_DispatchThreadID(uint3) DTid)
 			LOOP
 			for (int k = -1; k <= 1; ++k)
 			{
-				// hashed cell index is retrieved:
+				// hashed cell index is retrieved.
 				const int3 neighborIndex = cellIndex + int3(i, j, k);
 				const uint flatNeighborIndex = SPH_GridHash(neighborIndex);
 
-				// look up the offset into particle list from neighbor cell:
+				// look up the offset into particle list from neighbor cell.
 				uint neighborIterator = Get(cellOffsetBuffer)[flatNeighborIndex];
 
-				// iterate through neighbor cell particles (if iterator offset is valid):
+				// iterate through neighbor cell particles (if iterator offset is valid).
 				LOOP
 				while (neighborIterator != 0xFFFFFFFF && neighborIterator < Get(maxCount))
 				{
@@ -56,11 +56,11 @@ void CS_MAIN(SV_DispatchThreadID(uint3) DTid)
 						uint particleIndexB = Get(indexBuffer)[neighborIterator];
 						if (uint(Get(cellIndexBuffer)[particleIndexB]) != flatNeighborIndex)
 						{
-							// here means we stepped out of the neighbor cell list!
+							// stepped out of the neighbor cell list.
 							break;
 						}
 
-						// SPH Force evaluation:
+						// SPH Force evaluation.
 						{
 							const float3 posB = Get(particleBuffer)[particleIndexB].pos.xyz;
 
@@ -91,11 +91,9 @@ void CS_MAIN(SV_DispatchThreadID(uint3) DTid)
 		}
 	}
 
-	// optimize formulae:
+	// apply all forces.
 	f_a *= -1;
 	f_av *= e;
-
-	// apply all forces:
 	particleA.force.xyz += (f_a + f_av) / densityA;
 
 	Get(particleBuffer)[particleIndexA].force = particleA.force;

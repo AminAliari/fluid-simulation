@@ -8,7 +8,7 @@ void CS_MAIN(SV_DispatchThreadID(uint3) DTid)
     if (DTid.x >= Get(maxCount))
         RETURN();
 
-	// SPH params:
+	// SPH params.
 	const float h = Get(SPH_h);
 	const float h2 = Get(SPH_h2);
 	const float h3 = Get(SPH_h3);
@@ -19,14 +19,14 @@ void CS_MAIN(SV_DispatchThreadID(uint3) DTid)
 	uint particleIndexA = Get(indexBuffer)[DTid.x];
 	float3 posA = Get(particleBuffer)[particleIndexA].pos.xyz;
 
-	// Compute density field:
+	// Compute density field.
 	float density = 0; // (p)
 
 	// Grid cell is of size [SPH smoothing radius], so position is refitted into that
 	const float3 remappedPos = posA * Get(SPH_h_rcp);
 	const int3 cellIndex = int3(floor(remappedPos));
 
-	// iterate through all [27] neighbor cells:
+	// go through all neighbor cells.
 	LOOP
 	for (int i = -1; i <= 1; ++i)
 	{
@@ -36,25 +36,25 @@ void CS_MAIN(SV_DispatchThreadID(uint3) DTid)
 			LOOP
 			for (int k = -1; k <= 1; ++k)
 			{
-				// hashed cell index is retrieved:
+				// hashed cell index is retrieved.
 				const int3 neighborIndex = cellIndex + int3(i, j, k);
 				const uint flatNeighborIndex = SPH_GridHash(neighborIndex);
 
-				// look up the offset into particle list from neighbor cell:
+				// look up the offset into particle list from neighbor cell.
 				uint neighborIterator = Get(cellOffsetBuffer)[flatNeighborIndex];
 
-				// iterate through neighbor cell particles (if iterator offset is valid):
+				// iterate through neighbor cell particles (if iterator offset is valid).
 				LOOP
 				while (neighborIterator != 0xFFFFFFFF && neighborIterator < Get(maxCount))
 				{
 					uint particleIndexB = Get(indexBuffer)[neighborIterator];
 					if (uint(Get(cellIndexBuffer)[particleIndexB]) != flatNeighborIndex)
 					{
-						// here means we stepped out of the neighbor cell list!
+						// stepped out of the neighbor cell list.
 						break;
 					}
 
-					// SPH Density evaluation:
+					// SPH Density evaluation.
 					{
 						ParticleData particleB = Get(particleBuffer)[particleIndexB];
 
@@ -75,9 +75,9 @@ void CS_MAIN(SV_DispatchThreadID(uint3) DTid)
 	}
 
 	
-	density = max(p0, density); // Can't be lower than reference density to avoid negative pressure!
+	density = max(p0, density); // avoid negative pressure.
 
-	// Store the results:
+	// Store the results.
 	Get(densityBuffer)[particleIndexA] = density;
 
     RETURN();

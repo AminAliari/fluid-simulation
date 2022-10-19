@@ -56,7 +56,7 @@ void CS_MAIN(SV_DispatchThreadID(uint3) DTid)
             }
         }
 
-        // write back simulated particle:
+        // write back
         Get(particleBuffer)[particleIndex] = particle;
 	}
 
