@@ -30,6 +30,6 @@ Root
 - https://en.wikipedia.org/wiki/Smoothed-particle_hydrodynamics
 - http://rlguy.com/sphfluidsim/
 - https://github.com/ConfettiFX/The-Forge
-- https://github.com/GPUOpenLibrariesAndSDKs/GPUParticles11/blob/master/gpuparticles11/src/SortLib.cpp
+- https://github.com/GPUOpen-LibrariesAndSDKs/GPUParticles11/blob/master/gpuparticles11/src/SortLib.cpp
 - https://en.wikipedia.org/wiki/Bitonic_sorter
 - https://wickedengine.net/2018/05/21/scalabe-gpu-fluid-simulation/
