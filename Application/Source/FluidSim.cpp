@@ -75,7 +75,7 @@ struct FrameData
 
     float       dt                  = 0.03333334f; // 30 fps
 
-    uint32_t    maxCount            = 100'000;
+    uint32_t    maxCount            = MAX_PARTICLE_COUNT;
     float       mass                = 1.0f;
     float       drag                = 0.97f;
     float       particleSize        = 1.0f;
@@ -368,8 +368,8 @@ public:
             bufferDesc.ppBuffer = &pDensityBuffer;
             addResource(&bufferDesc, NULL);
 
-            waitForToken(&indexToken);
             waitForToken(&particleToken);
+            waitForToken(&indexToken);
 
             tf_free(indexData);
             tf_free(particleData);
@@ -419,7 +419,7 @@ public:
             SliderUintWidget maxCountUI;
             maxCountUI.pData = &gFrameData.maxCount;
             maxCountUI.mMin = 1;
-            maxCountUI.mMax = 100'000;
+            maxCountUI.mMax = MAX_PARTICLE_COUNT;
             UIWidget* pMaxCountUI = uiCreateComponentWidget(pGuiWindow, "Particle Count", &maxCountUI, WIDGET_TYPE_SLIDER_UINT);
             uiSetWidgetOnEditedCallback(pMaxCountUI, nullptr, setResetSimulation);
 
