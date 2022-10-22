@@ -881,24 +881,25 @@ public:
             waitForFences(pRenderer, gImageCount, pRenderCompleteFences);
             
             // Update particle buffer
+            SyncToken particleToken = {};
             {
-                SyncToken token = {};
                 BufferUpdateDesc particleBuffer = { pParticleBuffer };
                 beginUpdateResource(&particleBuffer);
                 generateParticleData((ParticleData*)particleBuffer.pMappedData);
-                endUpdateResource(&particleBuffer, &token);
-                waitForToken(&token);
+                endUpdateResource(&particleBuffer, &particleToken);
             }
 
             // Update index buffer
+            SyncToken indexToken = {};
             {
-                SyncToken token = {};
                 BufferUpdateDesc indexBuffer = { pIndexBuffer };
                 beginUpdateResource(&indexBuffer);
                 generateParticleIndexData((uint32_t*)indexBuffer.pMappedData);
-                endUpdateResource(&indexBuffer, &token);
-                waitForToken(&token);
+                endUpdateResource(&indexBuffer, &indexToken);
             }
+
+            waitForToken(&particleToken);
+            waitForToken(&indexToken);
         }
 
         // Reset cmd pool for this frame

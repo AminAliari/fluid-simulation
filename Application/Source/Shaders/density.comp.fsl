@@ -28,49 +28,41 @@ void CS_MAIN(SV_DispatchThreadID(uint3) DTid)
 
 	// go through all neighbor cells.
 	LOOP
-	for (int i = -1; i <= 1; ++i)
+	for (int i = 0; i < NEIGHBOR_COUNT; ++i)
 	{
+		// hashed cell index is retrieved.
+		const int3 neighborIndex = cellIndex + neighborCellOffsets[i];
+		const uint flatNeighborIndex = SPH_GridHash(neighborIndex);
+
+		// look up the offset into particle list from neighbor cell.
+		uint neighborIterator = Get(cellOffsetBuffer)[flatNeighborIndex];
+
+		// iterate through neighbor cell particles (if iterator offset is valid).
 		LOOP
-		for (int j = -1; j <= 1; ++j)
+		while (neighborIterator != 0xFFFFFFFF && neighborIterator < Get(maxCount))
 		{
-			LOOP
-			for (int k = -1; k <= 1; ++k)
+			uint particleIndexB = Get(indexBuffer)[neighborIterator];
+			if (uint(Get(cellIndexBuffer)[particleIndexB]) != flatNeighborIndex)
 			{
-				// hashed cell index is retrieved.
-				const int3 neighborIndex = cellIndex + int3(i, j, k);
-				const uint flatNeighborIndex = SPH_GridHash(neighborIndex);
+				// stepped out of the neighbor cell list.
+				break;
+			}
 
-				// look up the offset into particle list from neighbor cell.
-				uint neighborIterator = Get(cellOffsetBuffer)[flatNeighborIndex];
+			// SPH Density evaluation.
+			{
+				ParticleData particleB = Get(particleBuffer)[particleIndexB];
 
-				// iterate through neighbor cell particles (if iterator offset is valid).
-				LOOP
-				while (neighborIterator != 0xFFFFFFFF && neighborIterator < Get(maxCount))
+				float3 diff = posA - particleB.pos.xyz;
+				float r2 = dot(diff, diff); // distance squared
+
+				if (r2 < h2)
 				{
-					uint particleIndexB = Get(indexBuffer)[neighborIterator];
-					if (uint(Get(cellIndexBuffer)[particleIndexB]) != flatNeighborIndex)
-					{
-						// stepped out of the neighbor cell list.
-						break;
-					}
-
-					// SPH Density evaluation.
-					{
-						ParticleData particleB = Get(particleBuffer)[particleIndexB];
-
-						float3 diff = posA - particleB.pos.xyz;
-						float r2 = dot(diff, diff); // distance squared
-
-						if (r2 < h2)
-						{
-							float W = Get(SPH_poly6_constant) * pow(h2 - r2, 3); // poly6 smoothing kernel
-							density += Get(mass) * W;
-						}
-					}
-
-					++neighborIterator;
+					float W = Get(SPH_poly6_constant) * pow(h2 - r2, 3); // poly6 smoothing kernel
+					density += Get(mass) * W;
 				}
 			}
+
+			++neighborIterator;
 		}
 	}
 
