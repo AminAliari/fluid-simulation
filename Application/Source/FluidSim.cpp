@@ -85,7 +85,7 @@ struct FrameData
     float       SPH_h2;
     float       SPH_h3;
     float       SPH_K               = 100.0f;
-    float       SPH_e               = 0.1f;
+    float       SPH_e               = 0.018f;
     float       SPH_p0              = 2.0f;
     float       SPH_visc_constant;
     float       SPH_poly6_constant;
@@ -461,7 +461,7 @@ public:
 
             SliderFloatWidget massUI;
             massUI.pData = &gFrameData.mass;
-            massUI.mMin = 0.0f;
+            massUI.mMin = 1e-8f;
             massUI.mMax = 10.0f;
             UIWidget* pMassUI = uiCreateComponentWidget(pGuiWindow, "Mass", &massUI, WIDGET_TYPE_SLIDER_FLOAT);
 
