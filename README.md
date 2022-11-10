@@ -50,3 +50,6 @@ Root
 - https://github.com/GPUOpen-LibrariesAndSDKs/GPUParticles11/blob/master/gpuparticles11/src/SortLib.cpp
 - https://en.wikipedia.org/wiki/Bitonic_sorter
 - https://wickedengine.net/2018/05/21/scalabe-gpu-fluid-simulation/
+
+## License
+The project's license is MIT. The Forge middleware uses Apache 2.0. However, other third parties used by it use their respective licenses. Also, AMD SortLib license is MIT.
