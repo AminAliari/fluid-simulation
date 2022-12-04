@@ -1235,10 +1235,10 @@ public:
             
             if (takeScreenshot)
             {
-                // Metal platforms need one renderpass to prepare the swapchain textures for copy.
                 if(prepareScreenshot(pSwapChain))
                 {
-                    char filename[48];
+                    // gFrameCounter is of type uint64_t. Therefore, it has a maximum of floor(log(2^64-1)) + 1 = 20 digits.
+                    char filename[20];
                     sprintf(filename, "%llu.png", gFrameCounter);
                     captureScreenshot(pSwapChain, swapchainImageIndex, RESOURCE_STATE_PRESENT, filename);
                 }
