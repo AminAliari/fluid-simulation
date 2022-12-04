@@ -16,6 +16,7 @@
 #include "../../TheForge/Application/Interfaces/IInput.h"
 #include "../../TheForge/Application/Interfaces/IProfiler.h"
 #include "../../TheForge/Utilities/Interfaces/IFileSystem.h"
+#include "../../TheForge/Application/Interfaces/IScreenshot.h"
 #include "../../TheForge/Application/Interfaces/ICameraController.h"
 
 // Renderer
@@ -96,6 +97,7 @@ struct FrameData
 /// Globals
 uint32_t       gFrameIndex = 0;
 const uint32_t gImageCount = 3;
+uint64_t       gFrameCounter = 0;
 RootConstants  gRootConstants = {};
 uint32_t       gRootConstantIndex = 0;
 uint32_t       gComputeRootConstantIndex = 0;
@@ -197,6 +199,7 @@ float spawnRadius = 10.5f;
 float3 spawnCenter = float3(-22.0f, 47.0f, 0.0f);
 
 bool isPaused = false;
+bool takeScreenshot = false;
 bool canProcessFrame = false;
 void setProcessFrame() 
 {
@@ -221,6 +224,7 @@ public:
             fsSetPathForResourceDir(pSystemFileIO, RM_CONTENT, RD_GPU_CONFIG, "GPUCfg");
             fsSetPathForResourceDir(pSystemFileIO, RM_CONTENT, RD_SHADER_SOURCES, "Shaders");
             fsSetPathForResourceDir(pSystemFileIO, RM_CONTENT, RD_SHADER_BINARIES, "CompiledShaders");
+            fsSetPathForResourceDir(pSystemFileIO, RM_DEBUG, RD_SCREENSHOTS, "Screenshots");
         }
 
         // Rendering
@@ -253,6 +257,8 @@ public:
                 addSemaphore(pRenderer, &pRenderCompleteSemaphores[i]);
             }
             addSemaphore(pRenderer, &pImageAcquiredSemaphore);
+
+            initScreenshotInterface(pRenderer, pGraphicsQueue);
 
             initResourceLoaderInterface(pRenderer);
         }
@@ -411,6 +417,10 @@ public:
             ButtonWidget resetUI;
             UIWidget* pResetUI = uiCreateComponentWidget(pGuiWindow, "Reset", &resetUI, WIDGET_TYPE_BUTTON);
             uiSetWidgetOnEditedCallback(pResetUI, nullptr, setResetSimulation);
+
+            CheckboxWidget takeScreenshotUI;
+            takeScreenshotUI.pData = &takeScreenshot;
+            UIWidget* pTakeScreenshotUI = uiCreateComponentWidget(pGuiWindow, "Capture All Frames", &takeScreenshotUI, WIDGET_TYPE_CHECKBOX);
 
             CheckboxWidget pauseUI;
             pauseUI.pData = &isPaused;
@@ -690,6 +700,8 @@ public:
         removeSemaphore(pRenderer, pImageAcquiredSemaphore);
 
         exitResourceLoaderInterface(pRenderer);
+
+		exitScreenshotInterface();
 
         removeQueue(pRenderer, pGraphicsQueue);
 
@@ -1221,11 +1233,23 @@ public:
             presentDesc.ppWaitSemaphores = &pRenderCompleteSemaphore;
             presentDesc.mSubmitDone = true;
             
+            if (takeScreenshot)
+            {
+                // Metal platforms need one renderpass to prepare the swapchain textures for copy.
+                if(prepareScreenshot(pSwapChain))
+                {
+                    char filename[48];
+                    sprintf(filename, "%llu.png", gFrameCounter);
+                    captureScreenshot(pSwapChain, swapchainImageIndex, RESOURCE_STATE_PRESENT, filename);
+                }
+            }
+
             queuePresent(pGraphicsQueue, &presentDesc);
             flipProfiler();
         }
 
         gFrameIndex = (gFrameIndex + 1) % gImageCount;
+        ++gFrameCounter;
     }
 
     const char* GetName() { return "Fluid Simluation"; }
