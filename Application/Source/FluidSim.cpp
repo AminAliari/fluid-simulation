@@ -1242,7 +1242,7 @@ public:
                 {
                     // gFrameCounter is of type uint64_t. 
                     // Therefore, it has a maximum of floor(log(2^64-1)) + 1 = 20 digits.
-                    char filename[24];
+                    char filename[20 + 4];
                     sprintf(filename, "%" PRIu64 ".png", gFrameCounter);
                     
                     captureScreenshot(pSwapChain, swapchainImageIndex, RESOURCE_STATE_PRESENT, filename);
