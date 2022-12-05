@@ -27,6 +27,9 @@
 #include "../../TheForge/Utilities/Math/MathTypes.h"
 #include "../../TheForge/Utilities/Interfaces/IMemory.h"
 
+// Miscs
+#include <inttypes.h>
+
 /// Structs
 struct ParticleData
 {
@@ -1237,9 +1240,11 @@ public:
             {
                 if(prepareScreenshot(pSwapChain))
                 {
-                    // gFrameCounter is of type uint64_t. Therefore, it has a maximum of floor(log(2^64-1)) + 1 = 20 digits.
-                    char filename[20];
-                    sprintf(filename, "%llu.png", gFrameCounter);
+                    // gFrameCounter is of type uint64_t. 
+                    // Therefore, it has a maximum of floor(log(2^64-1)) + 1 = 20 digits.
+                    char filename[24];
+                    sprintf(filename, "%" PRIu64 ".png", gFrameCounter);
+                    
                     captureScreenshot(pSwapChain, swapchainImageIndex, RESOURCE_STATE_PRESENT, filename);
                 }
             }
