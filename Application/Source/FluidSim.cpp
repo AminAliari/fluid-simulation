@@ -179,9 +179,9 @@ ICameraController* pCameraController = NULL;
 ProfileToken       gGpuProfileToken = PROFILE_INVALID_TOKEN;
 
 // Meshes data
-int gNumberOfSpherePoints;
 float* pSpherePoints = 0;
-const int gSphereResolution = 5; // Increase for higher resolution spheres
+int gNumberOfSpherePoints = 0;
+const int gSphereResolution = 5; // increase for higher resolution spheres
 const float gSphereDiameter = 0.5f;
 float4 particleColor = float4(1.0f, 0.0f, 0.0f, 1.0f);
 
