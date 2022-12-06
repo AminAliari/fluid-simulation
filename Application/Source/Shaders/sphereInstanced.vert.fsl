@@ -12,7 +12,7 @@ STRUCT(VSOutput)
     DATA(float4, Color,    COLOR);
 };
 
-VSOutput VS_MAIN( VSInput In, SV_InstanceID(uint) InstanceID )
+VSOutput VS_MAIN(VSInput In, SV_InstanceID(uint) InstanceID)
 {
     INIT_MAIN;
     VSOutput Out;
