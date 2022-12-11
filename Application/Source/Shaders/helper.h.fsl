@@ -12,7 +12,7 @@ INLINE uint SPH_GridHash(int3 cellIndex)
     return n;
 }
 
-float plane_distance(float3 planePos, float3 planeNormal, float3 pointPos)
+INLINE float plane_distance(float3 planePos, float3 planeNormal, float3 pointPos)
 {
     return dot(pointPos - planePos, planeNormal);
 }
