@@ -45,7 +45,7 @@ STRUCT(ParticleData)
     DATA(float4, force, None);
 };
 
-// Push constants
+// push constants
 PUSH_CONSTANT(rootConstants, b0) // custom args depending on the graphics or compute pass.
 {
 	DATA(float4, args, None);
