@@ -1,5 +1,7 @@
 # Real-time SPH Fluid Simulation on GPU - [Web Page](https://aminaliari.github.io/fluid-simulation-webpage)
 
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/MFVHW4kdEtc/0.jpg)](https://www.youtube.com/watch?v=MFVHW4kdEtc)
+
 ## How to build
 Install the Vulkan SDK and build the project with your preferred Visual Studio version. Example:
 ```
