@@ -21,7 +21,7 @@ VSOutput VS_MAIN(VSInput In, SV_InstanceID(uint) InstanceID)
 
     Out.Position = mul(tempMat, float4(In.Position, 1.0f));
 
-    float4 normal = normalize(mul(Get(plane_toWorld)[InstanceID], float4(In.Normal.xyz, 0.0f)));
+    float4 normal = normalize(mul(Get(plane_toWorld)[InstanceID], float4(In.Normal.xyz, 1.0f)));
 
     float3 baseColor = Get(plane_color)[InstanceID].xyz;
     float3 diffuse = baseColor * max(dot(normal.xyz, -Get(lightDir)), 0.0);

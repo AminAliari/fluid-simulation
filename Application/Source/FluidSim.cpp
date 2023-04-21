@@ -591,7 +591,7 @@ public:
             gPlanes[8].mPos = vec3(8, 2.5f, 4.0f);
             gPlanes[8].mRot = kDegreeToRadian * vec3(90.0f, 0.0f, 0.0f);
             gPlanes[8].mScale = vec3(15.0f, 15.0f, 15.0f);
-            gPlanes[8].mColor = vec4(0.0f, 0.0f, 1.0f, 1.0f);
+            gPlanes[8].mColor = vec4(0.5f, 0.5f, 0.5f, 1.0f);
             gPlanes[8].mRotSpeed = kDegreeToRadian * vec3(0.0f, 40.0f, 0.0f);
         }
 

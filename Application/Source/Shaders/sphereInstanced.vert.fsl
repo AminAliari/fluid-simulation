@@ -12,26 +12,24 @@ STRUCT(VSOutput)
     DATA(float4, Color,    COLOR);
 };
 
+#define MAX_VELOCITY 50.0
+
 VSOutput VS_MAIN(VSInput In, SV_InstanceID(uint) InstanceID)
 {
     INIT_MAIN;
     VSOutput Out;
 
     float sphereDim = Get(particleSize);
-    ParticleData data = Get(particleBuffer)[InstanceID];
+    ParticleData particle = Get(particleBuffer)[InstanceID];
 
     float3 localPos = In.Position.xyz * sphereDim;
-    float3 worldPos = localPos + data.pos.xyz;
+    float3 worldPos = localPos + particle.pos.xyz;
     Out.Position = mul(Get(vp), float4(worldPos, 1.0f));
 
-    float3 worldNormal = normalize(In.Normal.xyz);
 
-    float3 baseColor = Get(args).rgb;
-    float3 diffuse = baseColor * max(dot(worldNormal, -Get(lightDir)), 0.0);
+    float velocity = length(particle.vel.xyz)/MAX_VELOCITY;
+    float3 baseColor = float3(velocity, velocity, 1.0 - velocity);
 
-    float3 ambientCoeff = float3(0.42, 0.478, 0.627);
-    float3 ambient = baseColor * ambientCoeff;
-
-    Out.Color = float4(diffuse + ambient, 1.0);
+    Out.Color = float4(baseColor.rgb, 1.0);
     RETURN(Out);
 }
