@@ -7,7 +7,7 @@
 ## How to build
 Install the Vulkan SDK and build the project with your preferred Visual Studio version. Example:
 ```
-Root/Application/Solution - Visual Studio 2022/Project.snl
+/Application/Solution - Visual Studio 2022/Project.snl
 ```
 
 ## Project structure
