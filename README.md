@@ -59,4 +59,4 @@ Root
 - https://wickedengine.net/2018/05/21/scalabe-gpu-fluid-simulation/
 
 ## License
-The project's license is MIT. The Forge middleware uses Apache 2.0. However, other third parties used by it use their own respective licenses. Finally, AMD's SortLib license is MIT.
+The project's license is MIT. The Forge middleware uses Apache 2.0, but the third parties used by it have their own respective licenses. Also, AMD's SortLib license is MIT.
