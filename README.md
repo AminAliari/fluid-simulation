@@ -3,8 +3,7 @@
 # Real-time SPH Fluid Simulation on GPU - [Web Page](https://aminaliari.github.io/fluid-simulation-webpage)
 
 [![](https://aminaliari.github.io/images/fluid-sim/1.gif)](https://www.youtube.com/watch?v=MFVHW4kdEtc)
-
-![](https://aminaliari.github.io/images/fluid-sim/2.gif)
+[![](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOGRjMjg0NjYzN2JkMzViNWY0MjVkY2VjOTY2YmNmNzg1OGVmZTRjOSZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/Y7Qke6WOsADOl1vEep/giphy.gif)](https://www.youtube.com/watch?v=MFVHW4kdEtc)
 
 </div>
 
